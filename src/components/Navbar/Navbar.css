@@ -12,7 +12,8 @@
 }
 
 .navbar-logo {
-  height: 85px;
+  height: 55px;
+  border-radius: 50%;
 }
 
 .navbar-menu {

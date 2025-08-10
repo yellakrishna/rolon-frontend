@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.css';
 import { assets } from '../../assets/assets';
+import logos from "/veg.png"
+
 
 const Footer = () => {
   return (
@@ -9,10 +11,10 @@ const Footer = () => {
         
         {/* Left Section */}
         <div className="footer-left">
-          <img src={assets.logo} alt="Fish Company Logo" className="footer-logo" />
+          <img src={logos} alt="Restaurant Logo" className="footer-logo" />
           <p className="footer-text">
-            Delivering fresh, high-quality fish from the Alampur River to your doorstep.
-            Our passion is to bring the taste of the river to your family’s table.
+            Serving delicious, freshly prepared meals made with the finest ingredients.<br/>
+            Our passion is to bring mouthwatering flavors from our kitchen to your table.
           </p>
           <div className="footer-social">
             <a href="#"><img src={assets.facebook_icon} alt="Facebook" /></a>
@@ -36,9 +38,9 @@ const Footer = () => {
         <div className="footer-right">
           <h2>Contact Us</h2>
           <ul>
-            <li>📍 Alampur Fish Market</li>
+            <li>📍 Main Street, Downtown City</li>
             <li>📞 +91 75698 1855*</li>
-            <li>📧 FishCompany@gmail.com</li>
+            <li>📧 contact@foodcompany.com</li>
           </ul>
         </div>
       </div>
@@ -46,7 +48,7 @@ const Footer = () => {
       <hr />
 
       <p className="footer-bottom">
-        © {new Date().getFullYear()} Fish Company — All Rights Reserved.
+        © {new Date().getFullYear()} Food Company — All Rights Reserved.
       </p>
     </footer>
   );

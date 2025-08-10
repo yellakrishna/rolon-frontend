@@ -1,6 +1,7 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
+import logos from "/veg.png"
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 
@@ -39,7 +40,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="navbar-left">
         <Link to="/">
-          <img className="navbar-logo" src={assets.logo} alt="Logo" />
+          <img className="navbar-logo" src={logos} alt="Logo" />
         </Link>
       </div>
 
@@ -70,6 +71,10 @@ const Navbar = () => {
 
       {/* Right Section */}
       <div className="navbar-right">
+        
+                <Link to="/myorders" onClick={() => navigate("/myorders")}>
+                  <img src={assets.bag_icon} alt="" /> <p></p>
+                </Link>
         {/* Cart */}
         <Link to="/cart" className="navbar-icon-wrapper">
           <img src={assets.basket_icon} alt="Cart" />

@@ -1,32 +1,29 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import heroImage from '/361.jpg'; // ✅ Update to your image path
+import heroImage from '/361.jpg'; // ✅ Ensure this file exists in /public or src
 
 const Header = () => {
     return (
-
-
         <header
             className="hero"
             style={{ backgroundImage: `url(${heroImage})` }}
         >
-            {/* Overlay for dark effect */}
+            {/* Dark overlay */}
             <div className="hero__overlay"></div>
-
 
             {/* Content */}
             <div className="hero__content">
                 <h1 className="animated-gradient-title">
-                    Fresh Fish Delivery in{" "}
-                    <span className="highlight-gradient">Alampur</span>
+                    Taste the <span className="highlight-gradient">Best Flavors</span> in Town
                 </h1>
                 <p>
-                    Enjoy fresh, high-quality fish delivered straight to your door.  
-                    Healthy, delicious, and just a click away.
+                    From mouth-watering street food to healthy vegetarian meals, sizzling non-veg dishes, 
+                    and irresistible desserts — we’ve got something for everyone. Order now and enjoy fresh, 
+                    delicious food delivered to your doorstep.
                 </p>
                 <Link to="/menu">
-                    <button className="hero__btn">View Menu</button>
+                    <button className="hero__btn">Explore Menu</button>
                 </Link>
             </div>
         </header>

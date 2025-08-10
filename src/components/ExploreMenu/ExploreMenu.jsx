@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import './ExploreMenu.css';
 import { StoreContext } from "../../Context/StoreContext.jsx";
-
 import { Link } from 'react-router-dom';
 
 const ExploreMenu = ({ category, setCategory }) => {
@@ -9,9 +8,10 @@ const ExploreMenu = ({ category, setCategory }) => {
 
   return (
     <div className="explore-menu" id="explore-menu">
-      <h1>Straight from the River</h1>
+      <h1>Explore Our Delicious Menu</h1>
       <p className="explore-menu-text">
-Fresh, locally sourced fish, cleaned and prepared with care to ensure premium taste and quality. Perfect for healthy, delicious meals — straight from the water to your kitchen.
+        From fresh vegetarian dishes to sizzling non-veg favorites, quick snacks, and indulgent desserts — 
+        our menu is crafted to satisfy every craving. Choose your favorite category and start your foodie journey!
       </p>
       <div className="both-flex">
         <div className="explore-menu-list">
@@ -20,7 +20,7 @@ Fresh, locally sourced fish, cleaned and prepared with care to ensure premium ta
             return (
               <Link
                 key={index}
-                to={`/category/${item.menu_name}`} // 👈 dynamic route
+                to={`/category/${item.menu_name}`}
                 className="explore-menu-list-item-link"
               >
                 <div

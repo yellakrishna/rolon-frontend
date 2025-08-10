@@ -80,41 +80,108 @@ export const assets = {
     logout_icon,
     bag_icon,
     parcel_icon
+
 }
 
+
 export const menu_list = [
-    {
-        menu_name: "Boccha",
-        menu_image: menu_1
-    },
-    {
-        menu_name: "Dhu Bocha",
-        menu_image: menu_2
-    },
-    {
-        menu_name: "Rovu",
-        menu_image: menu_3
-    },
-    {
-        menu_name: "valuga",
-        menu_image: menu_4
-    },
-    {
-        menu_name: "Murgam",
-        menu_image: menu_5
-    },
-    {
-        menu_name: "Matta",
-        menu_image: menu_6
-    },
-    {
-        menu_name: "NarJalla",
-        menu_image: menu_7
-    },
-    {
-        menu_name: "Royya",
-        menu_image: menu_8
-    }]
+  {
+    menu_name: "Vegetarian",
+    menu_image: "/veg.png"
+  },
+  {
+    menu_name: "Non-Vegetarian",
+    menu_image: "/non-veg.jpg"
+  },
+  {
+    menu_name: "Fast Food",
+    menu_image: "Fast-Food.jpg"
+  },
+  {
+    menu_name: "Seafood",
+    menu_image: "seafoos.png"
+  },
+  {
+    menu_name: "Salads",
+    menu_image: " salads.png"
+  },
+  {
+    menu_name: "Soups",
+    menu_image: "soups.png"
+  },
+  {
+    menu_name: "Pasta",
+    menu_image: "peasta.png"
+  },
+  {
+    menu_name: "Pizza",
+    menu_image: " pizza.png"
+  },
+  {
+    menu_name: "Grilled",
+    menu_image: "grilled.png"
+  },
+  {
+    menu_name: "Beverages",
+    menu_image: "braveges.png"
+  },
+  {
+    menu_name: "Desserts",
+    menu_image: "desert.png"
+  },
+  {
+    menu_name: "Sandwiches",
+    menu_image: "sandwishes.png"
+  },
+  {
+    menu_name: "Burgers",
+    menu_image: "bargar.png"
+  },
+  {
+    menu_name: "BBQ",
+    menu_image: "bbq.png"
+  },
+  {
+    menu_name: "Breakfast",
+    menu_image: "breakfast.png"
+  }
+];
+
+
+
+// export const menu_list = [
+//     {
+//         menu_name: "Boccha",
+//         menu_image: menu_1
+//     },
+//     {
+//         menu_name: "Dhu Bocha",
+//         menu_image: menu_2
+//     },
+//     {
+//         menu_name: "Rovu",
+//         menu_image: menu_3
+//     },
+//     {
+//         menu_name: "valuga",
+//         menu_image: menu_4
+//     },
+//     {
+//         menu_name: "Murgam",
+//         menu_image: menu_5
+//     },
+//     {
+//         menu_name: "Matta",
+//         menu_image: menu_6
+//     },
+//     {
+//         menu_name: "NarJalla",
+//         menu_image: menu_7
+//     },
+//     {
+//         menu_name: "Royya",
+//         menu_image: menu_8
+//     }]
 
 export const food_list = [
     {
@@ -348,3 +415,45 @@ export const food_list = [
         category: "Noodles"
     }
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Vegetarian
+
+// Non-Vegetarian
+
+// Fast Food
+
+// Seafood
+
+// Salads
+
+// Soups
+
+// Pasta
+
+// Pizza
+
+// Grilled
+
+// Beverages
+
+// Desserts
+
+// Sandwiches
+
+// Burgers
+
+// BBQ
+
+// Breakfast

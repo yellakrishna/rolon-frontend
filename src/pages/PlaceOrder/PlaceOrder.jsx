@@ -40,44 +40,61 @@ const PlaceOrder = () => {
     token,
   } = useContext(StoreContext);
 
- // 📌 Handle form input changes with validation
+// 📌 Handle form input changes with soft validation
 const onChangeHandler = (e) => {
   const { name, value } = e.target;
 
-  // Validation rules
-  if (name === "firstName" || name === "lastName") {
-    if (!/^[A-Za-z ]{2,}$/.test(value)) {
-      toast.error("Name should only contain letters and at least 2 characters");
-      return;
-    }
+  let isValid = true;
+  let errorMessage = "";
+
+  // Validation rules based on field type
+  switch (name) {
+    case "firstName":
+    case "lastName":
+      if (value && !/^[A-Za-z ]{2,}$/.test(value)) {
+        isValid = false;
+        errorMessage = "Name must contain only letters and at least 2 characters.";
+      }
+      break;
+
+    case "email":
+      if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        isValid = false;
+        errorMessage = "Invalid email format.";
+      }
+      break;
+
+    case "phone":
+      if (value && !/^[0-9]{10}$/.test(value)) {
+        isValid = false;
+        errorMessage = "Phone number must be exactly 10 digits.";
+      }
+      break;
+
+    case "zipCode":
+      if (value && !/^[0-9]{5,6}$/.test(value)) {
+        isValid = false;
+        errorMessage = "Invalid postal/ZIP code.";
+      }
+      break;
+
+    default:
+      break;
   }
 
-  if (name === "email") {
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      toast.error("Enter a valid email address");
-      return;
-    }
+  // Show error only when field is filled incorrectly
+  if (!isValid) {
+    toast.error(errorMessage, { autoClose: 1500 });
+    return;
   }
 
-  if (name === "phone") {
-    if (!/^[0-9]{10}$/.test(value)) {
-      toast.error("Phone must be exactly 10 digits");
-      return;
-    }
-  }
-
-  if (name === "zipCode") {
-    if (!/^[0-9]{5,6}$/.test(value)) {
-      toast.error("Enter a valid postal code");
-      return;
-    }
-  }
-
+  // Save value if valid
   setData((prev) => ({
     ...prev,
     [name]: value,
   }));
 };
+
 
 
   // 📌 Place Order

@@ -23,6 +23,7 @@
 .footer-logo {
   width: 100px; /* Smaller logo */
   margin-bottom: 8px;
+  border-radius: 50%;
 }
 
 .footer-text {
