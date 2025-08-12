@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { StoreContext } from "../../Context/StoreContext.jsx";
 import './FoodDetails.css';
@@ -8,9 +8,31 @@ const FoodDetails = () => {
   const navigate = useNavigate();
   const { food_list = [], addToCart, removeFromCart, cartItems = {} } = useContext(StoreContext);
 
-  // Find the selected food item
-  const foodItem = food_list.find(item => item._id === id);
-  if (!foodItem) return <div className="food-details-error">⚠️ Food item not found!</div>;
+  const [loading, setLoading] = useState(true);
+  const [foodItem, setFoodItem] = useState(null);
+
+  useEffect(() => {
+    if (food_list.length === 0) {
+      setLoading(true);
+    } else {
+      const item = food_list.find(item => item._id === id);
+      setFoodItem(item);
+      setLoading(false);
+    }
+  }, [food_list, id]);
+
+  if (loading) {
+    return (
+      <div className="food-details-loading">
+        <div className="spinner"></div>
+        <p>Loading food details...</p>
+      </div>
+    );
+  }
+
+  if (!foodItem) {
+    return <div className="food-details-error">⚠️ Food item not found!</div>;
+  }
 
   const quantity = cartItems?.[id] || 0;
 
