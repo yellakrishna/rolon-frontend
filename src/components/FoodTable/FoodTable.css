@@ -1,107 +1,170 @@
-/* FoodTable.css */
-
-/* Wrapper */
-.table-wrapper {
-  padding: 20px;
-  font-family: 'Calibri', 'Segoe UI', sans-serif;
-  background-color: #fff;
-  max-width: 100%;
+/* Container for horizontal scrolling */
+.category-table-container {
+  width: 100%;
   overflow-x: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 20px;
 }
 
-/* Heading */
-.table-heading {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #2c3e50;
+/* Word-style table */
+.category-table {
+  width: 100%;
+  min-width: 900px; /* ensures table fits desktop */
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
 }
 
-/* Table controls - compact style */
-.table-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px; /* smaller gap */
-  margin-bottom: 15px;
-  align-items: center; /* vertically align */
-}
-
-.search-input {
-  padding: 5px 10px; /* smaller padding */
-  font-size: 13px;   /* smaller font */
+.category-table th,
+.category-table td {
   border: 1px solid #ccc;
-  border-radius: 4px;
-  min-width: 150px;
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 14px;
+  word-wrap: break-word;
 }
 
-.download-btn {
-  padding: 5px 12px; /* smaller button */
-  font-size: 13px;
+.category-table th {
   background-color: #2980b9;
   color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.download-btn:hover {
-  background-color: #1f618d;
-}
-
-/* Table styles - MS Word type */
-.word-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.word-table th,
-.word-table td {
-  border: 1px solid #ddd;
-  padding: 8px 12px;
-  text-align: left;
-}
-
-.word-table th {
-  background-color: #d9edf7; /* Light blue like Word */
-  color: #000;
   font-weight: 600;
 }
 
-.word-table tr:nth-child(even) {
+.category-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.word-table tr:hover {
-  background-color: #f1f1f1;
+.category-table tr:hover {
+  background-color: #e0e0e0;
 }
 
-/* Image inside table */
-.table-img {
-  width: 60px;
-  height: 40px;
+.category-table img {
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 4px;
 }
 
+/* Table controls */
+.table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.search-input,
+.month-select {
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.download-btn {
+  padding: 2px 6px;
+  font-size: 14px;
+  border: none;
+  background-color: #2980b9;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #1d6097;
+}
+
+/* Responsive font & image */
+@media (max-width: 1024px) {
+  .category-table th,
+  .category-table td {
+    font-size: 13px;
+    padding: 8px 6px;
+  }
+  .category-table img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-table th,
+  .category-table td {
+    font-size: 12px;
+    padding: 6px 4px;
+  }
+  .category-table img {
+    width: 40px;
+    height: 40px;
+  }
+  .table-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+  .search-input,
+  .month-select {
+    width: 55%;
+    font-size: 12px;
+    padding: 5px 6px;
+  }
+  .download-btn {
+    width: auto;
+    font-size: 11px;
+    padding: 6px 4px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-table th,
+  .category-table td {
+    font-size: 11px;
+    padding: 5px 3px;
+  }
+  .category-table img {
+    width: 35px;
+    height: 35px;
+  }
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .search-input,
+  .month-select {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+  .download-btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+}
+
 /* Loading spinner */
 .loading-container {
-  text-align: center;
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
 }
 
 .spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #2980b9;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #2980b9;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 10px;
+  width: 50px;
+  height: 50px;
   animation: spin 1s linear infinite;
+  margin-bottom: 15px;
 }
 
 @keyframes spin {
@@ -109,28 +172,16 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Error cell */
 .error-cell {
   text-align: center;
   color: #e74c3c;
   font-weight: 500;
 }
 
-/* Responsive - scrollable table on small screens */
-@media screen and (max-width: 768px) {
-  .table-controls {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .word-table th,
-  .word-table td {
-    padding: 6px 8px;
-    font-size: 12px;
-  }
-
-  .table-img {
-    width: 50px;
-    height: 30px;
-  }
+.table-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
 }
