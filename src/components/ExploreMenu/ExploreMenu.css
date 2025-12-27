@@ -14,12 +14,17 @@
   font-size: 2.6rem;
   font-weight: 700;
   text-align: center;
-  background: linear-gradient(to right, #f36e62, #de1c7d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
   margin-bottom: 12px;
+
+  background: linear-gradient(to right, #f36e62, #de1c7d);
+  color: transparent;
+  -webkit-mask-image: linear-gradient(to right, #fff, #fff);
+  -webkit-mask-clip: text;
+  -webkit-text-fill-color: unset;
+  mask-image: linear-gradient(to right, #fff, #fff);
+  mask-clip: text;
 }
+
 
 .explore-menu-text {
   font-size: 1.1rem;
@@ -57,8 +62,8 @@
 
 .explore-menu-list-item img {
   width: 100%;
-  max-width: 100px;
-  height: 70px;
+  max-width: 300px;
+  height: 200px;
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #ffccbc;
@@ -103,8 +108,8 @@
   }
 
   .explore-menu-list-item img {
-    max-width: 80px;
-    height: 60px;
+    max-width: 200px;
+    height: 120px;
   }
 
   .explore-menu-list-item p {

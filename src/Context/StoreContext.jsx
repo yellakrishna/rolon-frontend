@@ -1,48 +1,75 @@
 import { createContext, useEffect, useState } from "react";
-import { menu_list } from "../assets/assets"; // Your static menu list
 import axios from "axios";
+import { menu_list } from "../assets/assets";
 
 export const url = import.meta.env.VITE_API_URL;
 
-// Create Context
 export const StoreContext = createContext(null);
 
-const StoreContextProvider = (props) => {
-
-
+const StoreContextProvider = ({ children }) => {
   const [food_list, setFoodList] = useState([]);
-  
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
-  // 📌 Add to Cart
-  const addToCart = async (itemId) => {
-    setCartItems((prev) => ({
-      ...prev,
-      [itemId]: (prev[itemId] || 0) + 1
-    }));
+  /* ===================== FOOD ===================== */
 
-    if (token) {
-      try {
-        await axios.post(
-          `${url}/api/cart/add`,
-          { itemId },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-      } catch (error) {
-        console.error(
-          "Error adding to cart:",
-          error.response?.data || error.message
-        );
+  const fetchFoodList = async () => {
+    try {
+      const res = await axios.get(`${url}/api/food/list`);
+      setFoodList(res.data.data || []);
+    } catch (err) {
+      console.error("Error fetching food list:", err.message);
+    }
+  };
+
+  /* ===================== CART ===================== */
+
+  const loadCartData = async (userToken) => {
+    if (!userToken) return;
+
+    try {
+      const res = await axios.get(`${url}/api/cart/get`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      setCartItems(res.data.cartData || {});
+    } catch (err) {
+      console.error("Error loading cart:", err.response?.data || err.message);
+
+      // 🔴 Token invalid → force logout
+      if (err.response?.status === 401) {
+        setToken("");
+        localStorage.removeItem("token");
+        setCartItems({});
       }
     }
   };
 
-  // 📌 Remove from Cart
+  const addToCart = async (itemId) => {
+    setCartItems((prev) => ({
+      ...prev,
+      [itemId]: (prev[itemId] || 0) + 1,
+    }));
+
+    if (!token) return;
+
+    try {
+      await axios.post(
+        `${url}/api/cart/add`,
+        { itemId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      console.error("Error adding to cart:", err.response?.data || err.message);
+    }
+  };
+
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => {
       const updated = { ...prev };
@@ -54,83 +81,52 @@ const StoreContextProvider = (props) => {
       return updated;
     });
 
-    if (token) {
-      try {
-        await axios.post(
-          `${url}/api/cart/remove`,
-          { itemId },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-      } catch (error) {
-        console.error(
-          "Error removing from cart:",
-          error.response?.data || error.message
-        );
-      }
-    }
-  };
+    if (!token) return;
 
-  // 💰 Get total cart amount
-  const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const itemId in cartItems) {
-      const item = food_list.find((product) => product._id === itemId);
-      if (item) {
-        totalAmount += item.price * cartItems[itemId];
-      }
-    }
-    return totalAmount;
-  };
-
-  // 🛍 Get total cart item count (for Navbar badge)
-  const getTotalCartItems = () => {
-    return Object.values(cartItems).reduce((sum, qty) => sum + qty, 0);
-  };
-
-  // 📥 Fetch all food items
-  const fetchFoodList = async () => {
     try {
-      const response = await axios.get(`${url}/api/food/list`);
-      setFoodList(response.data.data || []);
-    } catch (error) {
-      console.error("Error fetching food list:", error.message);
-    }
-  };
-
-  // 📦 Load cart data for logged-in user
-  const loadCartData = async (userToken) => {
-    try {
-      const response = await axios.post(
-        `${url}/api/cart/get`,
-        {},
+      await axios.post(
+        `${url}/api/cart/remove`,
+        { itemId },
         {
           headers: {
-            Authorization: `Bearer ${userToken}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
-      setCartItems(response.data.cartData || {});
-    } catch (error) {
-      console.error("Error loading cart:", error.response?.data || error.message);
+    } catch (err) {
+      console.error("Error removing from cart:", err.response?.data || err.message);
     }
   };
 
-  // 🔄 Load food list and cart data on mount
+  /* ===================== HELPERS ===================== */
+
+  const getTotalCartAmount = () => {
+    return Object.entries(cartItems).reduce((total, [id, qty]) => {
+      const item = food_list.find((p) => p._id === id);
+      return item ? total + item.price * qty : total;
+    }, 0);
+  };
+
+  const getTotalCartItems = () =>
+    Object.values(cartItems).reduce((sum, qty) => sum + qty, 0);
+
+  /* ===================== EFFECTS ===================== */
+
   useEffect(() => {
-    const loadData = async () => {
-      await fetchFoodList();
-      if (token) {
-        await loadCartData(token);
-      }
-    };
-    loadData();
+    fetchFoodList();
   }, []);
 
-  // Provide all state & functions to children
+  // 🔥 Reload cart WHEN token changes
+  useEffect(() => {
+    if (token) {
+      loadCartData(token);
+    } else {
+      setCartItems({});
+    }
+  }, [token]);
+
+  /* ===================== CONTEXT ===================== */
+
   const contextValue = {
     url,
     food_list,
@@ -139,16 +135,16 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
-    getTotalCartItems, // ✅ Added
+    getTotalCartItems,
     token,
     setToken,
     loadCartData,
-    setCartItems
+    setCartItems,
   };
 
   return (
     <StoreContext.Provider value={contextValue}>
-      {props.children}
+      {children}
     </StoreContext.Provider>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import logos from "/veg.png";
+import logos from "/logo.jpg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 
@@ -64,7 +64,7 @@ const Navbar = () => {
           Menu
         </NavLink>
 
-        <NavLink
+        {/* <NavLink
           to="/myorders"
           className="navbar-link"
           onClick={() => {
@@ -73,7 +73,7 @@ const Navbar = () => {
           }}
         >
           Orders
-        </NavLink>
+        </NavLink> */}
 
         <a
           href="#footer"
@@ -117,7 +117,7 @@ const Navbar = () => {
             />
             {profileOpen && (
               <ul className="navbar-dropdown">
-                <li
+                {/* <li
                   onClick={() => {
                     setProfileOpen(false);
                     setMenuOpen(false);
@@ -126,7 +126,7 @@ const Navbar = () => {
                 >
                   <img src={assets.bag_icon} alt="" /> <p>Orders</p>
                 </li>
-                <hr />
+                <hr /> */}
                 <li onClick={logout}>
                   <img src={assets.logout_icon} alt="" /> <p>Logout</p>
                 </li>

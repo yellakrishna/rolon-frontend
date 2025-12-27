@@ -1,15 +1,24 @@
-import React, { useContext, useState } from 'react';
-import './FoodItem.css';
-import { assets } from '../../assets/assets';
+import React, { useContext, useState } from "react";
 import { StoreContext } from "../../Context/StoreContext.jsx";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import { assets } from "../../assets/assets";
+import "./FoodItem.css";
 
-const FoodItem = ({ image, name, id }) => {
-  const { url, token } = useContext(StoreContext);
+const FoodItem = ({
+  id,
+  image,
+  sno,
+  date,
+  tagNo,
+  plantName,
+  reason,
+  action,
+  remark,
+}) => {
+  const { token } = useContext(StoreContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // ✅ Track loading state
+  const [loading, setLoading] = useState(true);
 
-  // ✅ If user not logged in, redirect to login when clicking item
   const handleClick = (e) => {
     if (!token) {
       e.preventDefault();
@@ -17,43 +26,26 @@ const FoodItem = ({ image, name, id }) => {
     }
   };
 
-  // ✅ Check if item details are missing
-  if (!id || !image || !name) {
-    return (
-      <div className="food-item error">
-        <p>⚠️ Something went wrong while loading this item.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="food-item">
-      <Link
-        to={`/food/${id}`}
-        className="food-item-link"
-        onClick={handleClick}
-      >
-        <div className="food-item-img-container">
-          {loading && (
-            <div className="image-loader">
-              <div className="spinner"></div>
-            </div>
-          )}
+    <tr>
+      <td>{sno}</td>
+      <td>{date}</td>
+      <td>{tagNo}</td>
+      <td>{plantName}</td>
+      <td>{reason}</td>
+      <td>{action}</td>
+      <td>{remark}</td>
+      <td className="image-cell">
+        <Link to={`/food/${id}`} onClick={handleClick}>
+          {loading && <div className="spinner"></div>}
           <img
-            className="food-item-image"
-            src={image}
-            alt={`Image of ${name}`}
-            onError={(e) => (e.target.src = assets.fallback_image)}
-            onLoad={() => setLoading(false)} // ✅ Hide loader when image loads
+            src={image || assets.fallback_image}
+            alt="item"
+            onLoad={() => setLoading(false)}
           />
-          <button className="food-item-btn">Order Now</button>
-        </div>
-        <div className="food-item-info">
-          <p className="food-item-name">{name}</p>
-          <img className="food-item-rating" src={assets.rating_starts} alt="Rating" />
-        </div>
-      </Link>
-    </div>
+        </Link>
+      </td>
+    </tr>
   );
 };
 

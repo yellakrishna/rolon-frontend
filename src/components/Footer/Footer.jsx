@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import { assets } from '../../assets/assets';
-import logos from "/veg.png"
+import logos from "/logo.jpg"
 
 
 const Footer = () => {
@@ -12,9 +12,9 @@ const Footer = () => {
         {/* Left Section */}
         <div className="footer-left">
           <img src={logos} alt="Restaurant Logo" className="footer-logo" />
-          <p className="footer-text">
-            Serving delicious, freshly prepared meals made with the finest ingredients.<br/>
-            Our passion is to bring mouthwatering flavors from our kitchen to your table.
+            <p className="footer-text">
+            Expert solutions for mechanical seals and industrial equipment.<br/>
+            Ensuring reliability, durability, and precision in every installation.
           </p>
           <div className="footer-social">
             <a href="#"><img src={assets.facebook_icon} alt="Facebook" /></a>
@@ -39,7 +39,7 @@ const Footer = () => {
           <h2>Contact Us</h2>
           <ul>
             <li>📍 Main Street, Downtown City</li>
-            <li>📞 +91 75698 1855*</li>
+            <li>📞 8860654988@</li>
             <li>📧 contact@foodcompany.com</li>
           </ul>
         </div>

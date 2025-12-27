@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import './FoodDisplay.css';
 import FoodItem from '../FoodItem/FoodItem';
 import { StoreContext } from "../../Context/StoreContext.jsx";
+import FoodTable from '../FoodTable/FoodTable.jsx';
 
 const FoodDisplay = ({ category }) => {
   const { food_list } = useContext(StoreContext);
@@ -32,9 +33,13 @@ const FoodDisplay = ({ category }) => {
                 <FoodItem
                   key={item._id}
                   image={item.image}
-                  name={item.name}
-                  desc={item.description}
-                  price={item.price}
+                  sno={item.sno}
+                  date={new Date(item.date).toLocaleDateString()}
+                  tagNo={item.tagNo}
+                  plantName={item.plantName}
+                  reason={item.reason}
+                  action={item.action}
+                  remark={item.remark}
                   id={item._id}
                 />
               ))}

@@ -8,11 +8,12 @@ const ExploreMenu = ({ category, setCategory }) => {
 
   return (
     <div className="explore-menu" id="explore-menu">
-      <h1>Explore Our Delicious Menu</h1>
-      <p className="explore-menu-text">
-        From fresh vegetarian dishes to sizzling non-veg favorites, quick snacks, and indulgent desserts — 
-        our menu is crafted to satisfy every craving. Choose your favorite category and start your foodie journey!
-      </p>
+      <h1>Mechanical Seal Installation Guide</h1>
+<p className="explore-menu-text">
+  Ensure reliable and leak-free operation of your machinery with our expert mechanical seal installation procedures. 
+  Follow step-by-step guidelines, best practices, and safety tips to achieve optimal performance and long-lasting seal integrity.
+</p>
+
       <div className="both-flex">
         <div className="explore-menu-list">
           {menu_list.map((item, index) => {
@@ -29,10 +30,10 @@ const ExploreMenu = ({ category, setCategory }) => {
                 >
                   <img
                     src={item.menu_image}
-                    alt={item.menu_name}
+                    // alt={item.menu_name}
                     className={isActive ? 'active' : ''}
                   />
-                  <p>{item.menu_name}</p>
+                  {/* <p>{item.menu_name}</p> */}
                 </div>
               </Link>
             );

@@ -1,0 +1,136 @@
+/* FoodTable.css */
+
+/* Wrapper */
+.table-wrapper {
+  padding: 20px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  background-color: #fff;
+  max-width: 100%;
+  overflow-x: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Heading */
+.table-heading {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Table controls - compact style */
+.table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* smaller gap */
+  margin-bottom: 15px;
+  align-items: center; /* vertically align */
+}
+
+.search-input {
+  padding: 5px 10px; /* smaller padding */
+  font-size: 13px;   /* smaller font */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+}
+
+.download-btn {
+  padding: 5px 12px; /* smaller button */
+  font-size: 13px;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+  background-color: #1f618d;
+}
+
+/* Table styles - MS Word type */
+.word-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.word-table th,
+.word-table td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.word-table th {
+  background-color: #d9edf7; /* Light blue like Word */
+  color: #000;
+  font-weight: 600;
+}
+
+.word-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.word-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Image inside table */
+.table-img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Loading spinner */
+.loading-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #2980b9;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error cell */
+.error-cell {
+  text-align: center;
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+/* Responsive - scrollable table on small screens */
+@media screen and (max-width: 768px) {
+  .table-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .word-table th,
+  .word-table td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .table-img {
+    width: 50px;
+    height: 30px;
+  }
+}
