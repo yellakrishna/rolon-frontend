@@ -153,11 +153,12 @@ const downloadPDF = () => {
           <thead>
             <tr>
               <th>S.No</th>
-              <th>Date & Time</th>
+              <th>Date</th>
               <th>Tag No</th>
               <th>Plant Name</th>
-              <th>Reason</th>
-              <th>Action</th>
+            
+              <th>Problem</th>
+                <th>Services</th>
               <th>Remark</th>
               <th>Image</th>
             </tr>
@@ -182,8 +183,9 @@ const downloadPDF = () => {
                   </td>
                   <td>{item.tagNo || "-"}</td>
                   <td>{item.plantName || "-"}</td>
-                  <td>{item.reason || "-"}</td>
+                 
                   <td>{item.action || "-"}</td>
+                   <td>{item.reason || "-"}</td>
                   <td>{item.remark || "-"}</td>
                   <td>
                     {item.image ? (

@@ -12,30 +12,32 @@ const CategoryPage = () => {
 
   const [monthFilter, setMonthFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [loading, setLoading] = useState(true); // ✅ loading state
+  const [loading, setLoading] = useState(true);
 
   // ✅ Check login
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }
   }, [navigate]);
 
-  // Simulate data loading
+  // ✅ Stop loading once food_list arrives (even if empty)
   useEffect(() => {
-    if (food_list && food_list.length > 0) {
+    if (food_list) {
       setLoading(false);
     }
   }, [food_list]);
 
-  // Filter by category
+  // ✅ FIXED: Safe category filter (handles spaces + case)
   const categoryItems = food_list.filter(
-    (item) => item.category?.toLowerCase() === categoryName?.toLowerCase()
+    (item) =>
+      item.category?.trim().toLowerCase() ===
+      categoryName?.trim().toLowerCase()
   );
 
-  const filteredItems = categoryItems
-    .slice()
+  // ✅ Sorting + filtering
+  const filteredItems = [...categoryItems]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .filter((item) => {
       const dateObj = new Date(item.date);
@@ -44,7 +46,7 @@ const CategoryPage = () => {
       let monthMatch = true;
       if (monthFilter) {
         const pastDate = new Date();
-        pastDate.setMonth(today.getMonth() - parseInt(monthFilter));
+        pastDate.setMonth(today.getMonth() - Number(monthFilter));
         monthMatch = dateObj >= pastDate && dateObj <= today;
       }
 
@@ -62,34 +64,30 @@ const CategoryPage = () => {
       return monthMatch && searchMatch;
     });
 
+  // ✅ Download PDF
   const downloadPDF = () => {
     const doc = new jsPDF();
-    doc.text(`This Plant - Seal Failure Report`, 14, 15);
+    doc.text(`${categoryName} - Seal Failure Report`, 14, 15);
 
     const tableColumn = [
       "S.No",
-      "Date & Time",
+      "Date",
       "Tag No",
       "Plant Name",
-      "Reason",
-      "Action",
+      "Problem",
+      "Services",
       "Remark",
     ];
 
     const tableRows = filteredItems.map((item, index) => [
       index + 1,
       item.date
-        ? new Date(item.date).toLocaleString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-           
-          })
+        ? new Date(item.date).toLocaleDateString("en-GB")
         : "-",
       item.tagNo || "-",
       item.plantName || "-",
-      item.reason || "-",
       item.action || "-",
+      item.reason || "-",
       item.remark || "-",
     ]);
 
@@ -98,15 +96,14 @@ const CategoryPage = () => {
       body: tableRows,
       startY: 20,
       theme: "grid",
-      styles: { fontSize: 10, cellPadding: 2 },
+      styles: { fontSize: 10 },
       headStyles: { fillColor: [41, 128, 185], textColor: 255 },
-      alternateRowStyles: { fillColor: [240, 240, 240] },
     });
 
     doc.save(`${categoryName}-report.pdf`);
   };
 
-  // ✅ Show spinner if loading
+  // ✅ Loading UI
   if (loading) {
     return (
       <div className="loading-container">
@@ -141,13 +138,13 @@ const CategoryPage = () => {
 
         <input
           type="text"
-          placeholder="Search date (DD/MM/YYYY), Plant Name, Tag No"
+          placeholder="Search Date, Plant Name, Tag No"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
         />
 
-        <button type="button" onClick={downloadPDF} className="download-btn">
+        <button onClick={downloadPDF} className="download-btn">
           Download PDF
         </button>
       </div>
@@ -158,11 +155,11 @@ const CategoryPage = () => {
             <thead>
               <tr>
                 <th>S.No</th>
-                <th>Date & Time</th>
+                <th>Date</th>
                 <th>Tag No</th>
                 <th>Plant Name</th>
-                <th>Reason</th>
-                <th>Action</th>
+                <th>Problem</th>
+                <th>Services</th>
                 <th>Remark</th>
                 <th>Image</th>
               </tr>
@@ -177,17 +174,13 @@ const CategoryPage = () => {
                   <td>{index + 1}</td>
                   <td>
                     {item.date
-                      ? new Date(item.date).toLocaleString("en-GB", {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "numeric",
-                        })
+                      ? new Date(item.date).toLocaleDateString("en-GB")
                       : "-"}
                   </td>
                   <td>{item.tagNo || "-"}</td>
                   <td>{item.plantName || "-"}</td>
-                  <td>{item.reason || "-"}</td>
                   <td>{item.action || "-"}</td>
+                  <td>{item.reason || "-"}</td>
                   <td>{item.remark || "-"}</td>
                   <td onClick={(e) => e.stopPropagation()}>
                     {item.image && <img src={item.image} alt="Food" />}
